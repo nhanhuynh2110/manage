@@ -1,0 +1,128 @@
+const path = require('path')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const CompressionPlugin = require('compression-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
+// const devMode = process.env.NODE_ENV !== 'production'
+
+const devMode = 'Development'
+
+const prefix = './src/client'
+
+module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  entry: {
+    // style: `${prefix}/style.js`,
+    main: `${prefix}/main.js`,
+    // login: './src/login.js'
+  },
+  watch: true,
+  output: {
+    path: path.resolve(__dirname, '../dist/dist')
+  },
+  resolve: {
+    alias: {
+      $: 'jquery',
+      jQuery: 'jquery',
+      _: 'lodash',
+      'lib-module': path.join(__dirname, './src/lib-module'),
+      'form': path.join(__dirname, './src/lib-module/form'),
+      'form-layout': path.join(__dirname, './src/component/form/layout')
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              sourceMap: true,
+              hmr: process.env.NODE_ENV === 'development'
+            }
+          },
+          // 'style-loader',
+          'css-loader',
+          'sass-loader' ]
+      },
+      // {
+      //   test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 50000
+      //       }
+      //     }]
+      // }
+      {
+        test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'image',
+          publicPath: '../src/scss/lib/img'
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      }
+      // {
+      //   test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      //   use: [{
+      //     loader: 'file-loader',
+      //     options: {
+      //       name: '[name].[ext]',
+      //       outputPath: 'fonts/', // where the fonts will go
+      //       publicPath: '/fonts' // override the default path
+      //     }
+      //   }]
+      // },
+      // {
+      //   test: /\.(png|jpe?g|gif)$/i,
+      //   use: [{
+      //     loader: 'file-loader',
+      //     options: {
+      //       limit: 50000,
+      //       name: '[path][name].[ext]',
+      //       outputPath: 'img/', // where the fonts will go
+      //       publicPath: '/img' // override the default path
+      //     }
+      //   }]
+      // }
+    ]
+  },
+  plugins: [
+    // new MiniCssExtractPlugin({
+    //   filename: 'style.css'
+    // })
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
+    }),
+    new webpack.ProvidePlugin({
+      _: 'lodash'
+    })
+    // new BundleAnalyzerPlugin()
+    // new CompressionPlugin({
+    //   test: /\.js(\?.*)?$/i
+    // })
+  ]
+}

@@ -4,23 +4,26 @@ import conf from '../../config/private'
 import logger from '../../logger'
 
 export default (router) => {
+  
   router.get('/login', (req, res) => {
-    res.sendFile(path.resolve(path.join(__dirname, '../../views/login.html')))
+    return res.sendFile(path.resolve(path.join(__dirname, '../../views/login.html')))
   })
   router.post('/login', (req, res) => {
+    // get user
     return authService.getUser({...req.body})
-      .then(user => {
+      .then(data => {
+        const user = data.user
         req.session.user = user
-        return authService.createBearToken(user)
+        return authService.createBearToken(user) // create bear token
       })
       .then(bearToken => {
-        res.cookie(conf.auth.cookieName, bearToken)
-        res.redirect(conf.auth.successRedirect)
+        res.cookie(conf.auth.cookieName, bearToken) // set token to cookie
+        return res.redirect(conf.auth.successRedirect) // successed redirect home
       })
       .catch((error) => {
         logger.error(error)
-        req.session.destroy()
-        res.redirect(conf.auth.failureRedirect)
+        req.session.destroy() // remove sesion
+        res.redirect(conf.auth.failureRedirect) //failed redirect to login
       })
   })
 
@@ -29,10 +32,5 @@ export default (router) => {
     res.clearCookie('connect.sid')
     req.session.destroy()
     res.redirect(conf.auth.failureRedirect)
-  })
-
-  router.use((req, res, next) => {
-    if (!req.isAuthenticated()) return res.redirect(conf.auth.failureRedirect)
-    return next()
   })
 }

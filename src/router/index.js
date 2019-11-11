@@ -1,18 +1,27 @@
 import express from 'express'
+import path from 'path'
 import {withAPI, useApi} from './middlewares'
 import auth from './auth'
+import conf from '../config/private'
 
 const router = express.Router()
 
 router.use(withAPI())
 
+
 auth(router)
 
-router.use('*', useApi)
+// router.use('/*', useApi)
 
-router.get('/', (req, res) => {
-  res.send('server is ready')
+router.use('*', (req, res, next) => {
+  if (!req.isAuthenticated()) return res.redirect(conf.auth.failureRedirect)
+  next()
 })
+
+router.get('/*', (req, res) => {
+  return res.sendFile(path.resolve(path.join(__dirname, '../views/index.html')))
+})
+
 
 router.get('/base-api', (req, res) => {
   try {
