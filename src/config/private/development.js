@@ -5,6 +5,7 @@ module.exports = {
   },
   session: {
     secret: 'NHAN',
+    name: 'manage-dev',
     maxAge: 3600 * 24 * 30
   },
   logger: {

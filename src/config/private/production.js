@@ -4,7 +4,9 @@ module.exports = {
     domain: 'http://localhost:3100'
   },
   session: {
-    secret: 'NHAN'
+    secret: 'NHAN',
+    name: 'manage-pro',
+    maxAge: 3600 * 24 * 30
   },
   logger: {
     appenders: { log: { type: 'file', filename: 'log.txt' } },

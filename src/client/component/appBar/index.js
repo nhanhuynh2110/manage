@@ -7,7 +7,7 @@ import ToolBar from './toolBar'
 import Drawer from './drawer'
 import MenuList from './menu'
 
-import appBarStyle from './appBar.style'
+import appBarStyle from './appBarStyle'
 
 const useStyles = makeStyles(appBarStyle)
 

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Toolbar, IconButton, Typography } from '@material-ui/core'
 import { Menu as MenuIcon } from '@material-ui/icons'
 
-import toolBarStyle from './toolBar.style'
+import toolBarStyle from './toolBarStyle'
 
 const useStyles = makeStyles(toolBarStyle)
 

@@ -11,8 +11,8 @@ import router from './router'
 const app = express()
 
 app.use(session({
-  secret: 'DEVNH',
-  name: 'manage-NH'
+  secret: conf.session.secret,
+  name: conf.session.name
 }))
 app.use(cookieParser())
 app.use(bodyParser())

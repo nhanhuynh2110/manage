@@ -29,6 +29,7 @@ const resultHandler = (response) => {
 
 class Adapter {
   get (url, query = {}) {
+    console.log('>>>>>>>>>>>>>>>>>>>>> queryString(url, query)', queryString(url, query))
     return fetch(queryString(url, query), options()).then(responseHandler).then(resultHandler)
   }
 

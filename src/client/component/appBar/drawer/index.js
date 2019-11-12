@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Drawer, Avatar, IconButton, Divider } from '@material-ui/core'
 import { ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon } from '@material-ui/icons'
-import drawerStyle from './drawer.style'
+import drawerStyle from './drawerStyle'
 
 const useStyles = makeStyles(drawerStyle)
 
