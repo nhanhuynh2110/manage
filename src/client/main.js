@@ -1,17 +1,25 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import {withData} from 'react-hooks-usemodel'
-
-import Button from '@material-ui/core/Button'
+import { withData } from 'react-hooks-usemodel'
+import Theme from './themes'
+import routerLink from './router'
 
 const App = () => {
-  return <React.Fragment>
-    <CssBaseline />
-    <Button variant="contained" color="primary">
-      Hello World
-    </Button>
-  </React.Fragment>
+  return (
+    <BrowserRouter>
+      <CssBaseline />
+      <Theme>
+        <Switch>
+          {routerLink().map(el => {
+            const { key, ...other } = el
+            return <Route key={key} {...other} />
+          })}
+        </Switch>
+      </Theme>
+    </BrowserRouter>
+  )
 }
 
 const Application = withData({})(App)
