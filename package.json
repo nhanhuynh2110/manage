@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
+    "clean-client": "rm -rf dist/client dist/webpack",
     "test": "node index",
     "dev": "set NODE_ENV=development&& node dist/index",
     "prod": "set NODE_ENV=production&& node dist/index",
@@ -14,7 +15,8 @@
     "build": "babel src --out-dir dist --source-maps inline",
     "build1": "set NODE_ENV=production&& babel src --out-file dist/index.js",
     "client-prod": "set NODE_ENV=production&& webpack --config ./dist/webpack/index.js -p",
-    "start-prod": "set NODE_ENV=production&& npm run clean & npm run build & npm run coppy & npm run client-prod & npm run prod",
+    "setup-prod": "set NODE_ENV=production&& npm run clean & npm run build & npm run coppy & npm run client-prod & npm run clean-client",
+    "start-prod": "npm i & npm run prod",
     "start": "set NODE_ENV=development&& nodemon --exec babel-node src/index.js",
     "client": "webpack --config ./src/webpack/index.js",
     "start-prod1": "set NODE_ENV=production&& npm run clean & npm run build1 & npm run coppy & npm run prod"
