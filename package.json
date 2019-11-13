@@ -10,13 +10,14 @@
     "dev": "set NODE_ENV=development&& node dist/index",
     "prod": "set NODE_ENV=production&& node dist/index",
     "build-dev": "set NODE_ENV=development&& babel src --out-dir dist",
-    "coppy": "babel src/views --out-dir dist/views --source-maps inline --copy-files",
-    "coppy-webpack": "babel src/webpack --out-dir dist/webpack --source-maps inline --copy-files",
+    "coppy-views": "babel src/views -d dist/views --source-maps inline --copy-files",
+    "coppy": "babel src/views -d dist/views src/webpack -d dist/webpack src/client -d dist/client --source-maps inline --copy-files",
+    "coppy-webpack": "babel src/webpack --out-dir dist/webpack --copy-files",
     "build": "babel src --out-dir dist --source-maps inline",
     "build1": "set NODE_ENV=production&& babel src --out-file dist/index.js",
     "client-prod": "set NODE_ENV=production&& webpack --config ./dist/webpack/index.js -p",
-    "setup-prod": "set NODE_ENV=production&& npm run clean & npm run build & npm run coppy & npm run client-prod & npm run clean-client",
-    "start-prod": "npm i & npm run prod",
+    "build-prod": "set NODE_ENV=production&& npm run clean & npm run build & npm run coppy-views & npm run coppy & npm run client-prod & npm run clean-client",
+    "start-prod": "npm install --production & npm run prod",
     "start": "set NODE_ENV=development&& nodemon --exec babel-node src/index.js",
     "client": "webpack --config ./src/webpack/index.js",
     "start-prod1": "set NODE_ENV=production&& npm run clean & npm run build1 & npm run coppy & npm run prod"
@@ -26,6 +27,7 @@
   "dependencies": {
     "@material-ui/core": "^4.6.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.32",
     "body-parser": "^1.19.0",
     "clsx": "^1.0.4",
     "cookie-parser": "^1.4.4",
@@ -43,6 +45,7 @@
     "react-dom": "^16.11.0",
     "react-hooks-usemodel": "0.0.4",
     "react-router-dom": "^5.1.2",
+    "react-spring": "^8.0.27",
     "webpack": "^4.41.2"
   },
   "devDependencies": {

@@ -1,10 +1,12 @@
 import React from 'react'
 import { CategoryAPI } from '../../../api'
+import {Treeview, Table} from '../../../component'
+import Grid from '@material-ui/core/Grid'
 
 export default () => {
   const [list, setList] = React.useState([])
 
-  const table = new DataTable(model, data)
+  // const table = new DataTable(model, data)
 
   const getList = () => {
     const payload = {
@@ -23,5 +25,18 @@ export default () => {
     getList()
   }, [])
 
-  return <div>{list.length}</div>
+  return (
+    <div>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={3}>
+          <Treeview />
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <Table />
+        </Grid>
+      </Grid>
+      
+      {list.length}
+    </div>
+  )
 }

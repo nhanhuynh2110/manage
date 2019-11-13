@@ -1,7 +1,8 @@
 module.exports = {
   PORT: 4100,
   api: {
-    domain: 'http://localhost:3100'
+    domain: 'http://localhost:3100',
+    prefix: '/api/admin/'
   },
   session: {
     secret: 'NHAN',
