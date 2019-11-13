@@ -4,10 +4,10 @@ import Adapter from '../router/adapter'
 import logger from '../logger'
 
 export default {
-  getUser: ({username, password}) => {
+  getUser: ({ username, password }) => {
     logger.info('>>>>>>>> Get User')
     const adapter = new Adapter()
-    return adapter.get('/api/admin/login', {username, password})
+    return adapter.get('/api/admin/login', { username, password })
   },
   createBearToken: (user) => {
     logger.info('>>>>>>>> Get User ID ' + user._id)

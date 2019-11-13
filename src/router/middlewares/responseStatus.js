@@ -1,3 +1,5 @@
+import logger from '../../logger'
+
 const status = {
   OK: 200,
   CREATED: 201,
@@ -12,16 +14,21 @@ const status = {
 
 const methods = res => {
   return {
-    OK (data) { return res.status(status.OK).json({status: status.OK, message: 'success', data}) },
-    created (data) { return res.status(status.CREATED).json({status: status.CREATED, message: '', data}) },
+    OK (data) { return res.status(status.OK).json({ status: status.OK, message: 'success', data }) },
+    created (data) { return res.status(status.CREATED).json({ status: status.CREATED, message: '', data }) },
     badRequest (message) {
-      return res.status(status.BAD_REQUEST).json({status: status.BAD_REQUEST, message: message || 'Bad Request'})
+      logger.error(`status badRequest: ${message}`)
+      return res.status(status.BAD_REQUEST).json({ status: status.BAD_REQUEST, message: message || 'Bad Request' })
     },
     conflict (message) {
-      return res.status(status.CONFLICT).json({status: status.CONFLICT, message: message || 'Type of request data is different to type of resource'})
+      return res.status(status.CONFLICT).json({ status: status.CONFLICT, message: message || 'Type of request data is different to type of resource' })
     },
-    serverError (err) { return res.status(status.SERVER_ERROR).json({status: status.SERVER_ERROR, message: err.toString()}) },
+    serverError (err) {
+      logger.error(`status serverError: ${err.toString()}`)
+      return res.status(status.SERVER_ERROR).json({ status: status.SERVER_ERROR, message: err.toString() })
+    },
     forbidden (message) {
+      logger.error(`status forbidden: ${message}`)
       return res.status(status.FORBIDDEN).json({ status: status.FORBIDDEN, message: message || 'You don\'t have permission to access this resource' })
     },
     notFound (message) {

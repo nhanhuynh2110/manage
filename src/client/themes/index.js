@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { AppBar, Breadcrumbs } from '../component'
+import { AppBar } from '../component'
 
 import theme from './themesStyle'
 

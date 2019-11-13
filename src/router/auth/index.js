@@ -1,20 +1,18 @@
 import path from 'path'
-import {authService} from '../../services'
+import { authService } from '../../services'
 import conf from '../../config/private'
 import logger from '../../logger'
 
 export default (router) => {
-  
   router.get('/login', (req, res) => {
     return res.sendFile(path.resolve(path.join(__dirname, '../../views/login.html')))
   })
   router.post('/login', (req, res) => {
     // get user
-    return authService.getUser({...req.body})
+    return authService.getUser({ ...req.body })
       .then(data => {
-        const user = data.user
-        req.session.user = user
-        return authService.createBearToken(user) // create bear token
+        req.session.user = data.user
+        return authService.createBearToken(data.user) // create bear token
       })
       .then(bearToken => {
         res.cookie(conf.auth.cookieName, bearToken) // set token to cookie
@@ -23,7 +21,7 @@ export default (router) => {
       .catch((error) => {
         logger.error(error)
         req.session.destroy() // remove sesion
-        res.redirect(conf.auth.failureRedirect) //failed redirect to login
+        res.redirect(conf.auth.failureRedirect) // failed redirect to login
       })
   })
 

@@ -8,6 +8,7 @@ import Drawer from './drawer'
 import MenuList from './menu'
 
 import appBarStyle from './appBarStyle'
+import Breadcrumbs from '../breadcrumbs'
 
 const useStyles = makeStyles(appBarStyle)
 
@@ -33,6 +34,7 @@ export default function MiniDrawer ({ children }) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <Breadcrumbs />
         {children}
       </main>
     </div>

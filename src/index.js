@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
-app.use('/', express.static(path.resolve(__dirname, '../dist/dist')))
+app.use('/', express.static(path.resolve(__dirname, './dist')))
 
 app.use((req, res, next) => {
   const user = _.get(req.session, 'user')

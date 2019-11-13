@@ -1,11 +1,10 @@
 import React from 'react'
 
-import { Table, Breadcrumbs } from '../../../component'
+import { Table } from '../../../component'
 
 export default () => {
   return (
     <>
-      <Breadcrumbs />
       <Table />
     </>
   )

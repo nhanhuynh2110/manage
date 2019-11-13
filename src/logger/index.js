@@ -1,5 +1,6 @@
-import log4js from 'log4js'
 import conf from '../config/private'
+
+const log4js = require('log4js')
 
 log4js.configure(conf.logger)
 

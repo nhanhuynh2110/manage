@@ -24,6 +24,13 @@ export default (theme) => {
       flexGrow: 1,
       padding: theme.spacing(3)
     },
+    toolbar: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: theme.spacing(0, 1),
+      ...theme.mixins.toolbar
+    },
     avatar: {
       margin: 10
     },

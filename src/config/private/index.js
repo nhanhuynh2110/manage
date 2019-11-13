@@ -11,4 +11,4 @@ const common = {
   }
 }
 
-module.exports = {...common, ...config}
+module.exports = { ...common, ...config }

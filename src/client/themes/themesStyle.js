@@ -10,7 +10,7 @@ const theme = createMuiTheme({
       contrastText: '#fff'
     }
   },
-  // spacing: 8
+  spacing: 8
 })
 
 export default theme
