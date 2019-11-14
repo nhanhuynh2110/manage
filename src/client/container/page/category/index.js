@@ -27,7 +27,7 @@ export default () => {
 
   return (
     <div>
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
           <Treeview />
         </Grid>
