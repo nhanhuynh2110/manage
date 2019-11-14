@@ -5,6 +5,7 @@
 node_modules
 dist
 public
+views-src
 package-lock.json
 .env
 npm-debug.log
