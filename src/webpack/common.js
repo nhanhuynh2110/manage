@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const prefix = path.resolve(__dirname, '../client')
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
@@ -41,7 +42,7 @@ module.exports = {
           },
           // 'style-loader',
           'css-loader',
-          'sass-loader' ]
+          'sass-loader']
       },
       {
         test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|svg)$/i,

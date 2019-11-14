@@ -1,12 +1,9 @@
-import path from 'path'
 import { authService } from '../../services'
 import conf from '../../config/private'
 import logger from '../../logger'
 
 export default (router) => {
-  router.get('/login', (req, res) => {
-    return res.sendFile(path.resolve(path.join(__dirname, '../../views/login.html')))
-  })
+  router.get('/login', (req, res) => res.sendFile(global.__basedir + '/views/login.html'))
   router.post('/login', (req, res) => {
     // get user
     return authService.getUser({ ...req.body })

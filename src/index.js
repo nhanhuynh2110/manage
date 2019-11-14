@@ -9,6 +9,7 @@ import logger from './logger'
 import router from './router'
 
 const app = express()
+global.__basedir = __dirname
 
 app.use(session({
   secret: conf.session.secret,

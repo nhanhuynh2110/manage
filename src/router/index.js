@@ -1,5 +1,4 @@
 import express from 'express'
-import path from 'path'
 import Adapter from './adapter'
 import { withAPI, useApi, checkAuth } from './middlewares'
 import auth from './auth'
@@ -52,6 +51,8 @@ router.delete('/base-api', (req, res) => {
   } catch (error) { res.serverError(error) }
 })
 
-router.get('/*', (req, res) => res.sendFile(path.resolve(path.join(__dirname, '../views/index.html'))))
+router.get('/*', (req, res) => {
+  res.sendFile(global.__basedir + '/views/index.html')
+})
 
 export default router
