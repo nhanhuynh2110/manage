@@ -1,7 +1,7 @@
 import React from 'react'
-import { CategoryAPI } from '../../../api'
-import {Treeview, Table} from '../../../component'
 import Grid from '@material-ui/core/Grid'
+import { CategoryAPI } from '../../../api'
+import { Treeview, Table } from '../../../component'
 
 export default () => {
   const [list, setList] = React.useState([])
@@ -27,7 +27,7 @@ export default () => {
 
   return (
     <div>
-      <Grid container spacing={3}>
+      <Grid container>
         <Grid item xs={12} sm={3}>
           <Treeview />
         </Grid>
@@ -35,7 +35,7 @@ export default () => {
           <Table />
         </Grid>
       </Grid>
-      
+
       {list.length}
     </div>
   )

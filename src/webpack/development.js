@@ -7,8 +7,8 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js'
+    filename: '[name].js',
+    chunkFilename: '[name].js'
   },
   watch: true,
   plugins: [
