@@ -4,6 +4,9 @@ module.exports = {
     domain: 'http://localhost:3100',
     prefix: '/api/admin/'
   },
+  cache: {
+    maxAge: 3600000
+  },
   session: {
     secret: 'NHAN',
     name: 'manage-pro',

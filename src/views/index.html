@@ -14,6 +14,8 @@
 </head>
 <body>
   <div id='root'></div>
-  <script src="/main.js"></script>
+  <% for (var jsIndex = 0; jsIndex < htmlWebpackPlugin.files.js.length; jsIndex++) { %>
+    <% if (!htmlWebpackPlugin.files.js[jsIndex].includes('dist')) { %> <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[jsIndex] %>"></script>
+  <% }} %>
 </body>
 </html>

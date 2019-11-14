@@ -22,7 +22,9 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
-app.use('/', express.static(path.resolve(__dirname, './dist')))
+app.use('/', express.static(path.resolve(__dirname, './dist'), {
+  maxAge: conf.cache.maxAge
+}))
 
 app.use((req, res, next) => {
   const user = _.get(req.session, 'user')

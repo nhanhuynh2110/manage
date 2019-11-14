@@ -3,7 +3,7 @@ import conf from '../../config/private'
 import logger from '../../logger'
 
 export default (router) => {
-  router.get('/login', (req, res) => res.sendFile(global.__basedir + '/views/login.html'))
+  router.get('/login', (req, res) => res.sendFile(global.__basedir + '/views-src/login.html'))
   router.post('/login', (req, res) => {
     // get user
     return authService.getUser({ ...req.body })

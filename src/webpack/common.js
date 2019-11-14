@@ -11,9 +11,6 @@ module.exports = {
     login: `${prefix}/login.js`
   },
   watch: true,
-  output: {
-    path: path.resolve(__dirname, '../dist')
-  },
   resolve: {
     alias: {
       $: 'jquery',

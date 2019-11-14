@@ -52,7 +52,7 @@ router.delete('/base-api', (req, res) => {
 })
 
 router.get('/*', (req, res) => {
-  res.sendFile(global.__basedir + '/views/index.html')
+  res.sendFile(global.__basedir + '/views-src/index.html')
 })
 
 export default router
