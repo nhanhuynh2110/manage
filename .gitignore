@@ -4,6 +4,7 @@
 ## Commenting this out is preferred by some people, see
 node_modules
 dist
+public
 package-lock.json
 .env
 npm-debug.log
