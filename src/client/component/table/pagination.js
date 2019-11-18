@@ -4,7 +4,7 @@ import { TablePagination } from '@material-ui/core'
 export default ({ total, rowsPerPage, page, handleChangePage, handleChangeRowsPerPage }) => {
   return (
     <TablePagination
-      rowsPerPageOptions={[5, 10, 25]}
+      rowsPerPageOptions={[1, 5, 10, 25, 50]}
       component='div'
       count={total}
       rowsPerPage={rowsPerPage}

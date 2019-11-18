@@ -1,5 +1,7 @@
 import dataTableModel from './dataTable'
+import TabsModel from './tabs'
 
 export {
-  dataTableModel
+  dataTableModel,
+  TabsModel
 }

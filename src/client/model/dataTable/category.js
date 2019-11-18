@@ -1,8 +1,15 @@
 export default {
+  _id: {
+    hidden: true
+  },
   title: {
-    column: 'Title'
+    label: 'Title'
+  },
+  parentId: {
+    label: 'Parent',
+    formatter: (v) => !v ? 'Parent' : 'Childen'
   },
   createDate: {
-    column: 'Create Date'
+    label: 'Create Date'
   }
 }

@@ -1,13 +1,13 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react'
-import PropTypes from 'prop-types'
 
-import {Collapse} from '@material-ui/core'
+import { Collapse } from '@material-ui/core'
 import { useSpring, animated } from 'react-spring/web.cjs' // web.cjs is required for IE 11 support
 
-const TransitionComponent = (props) => { 
+const TransitionComponent = (props) => {
   const style = useSpring({
     from: { opacity: 0, transform: 'translate3d(20px,0,0)' },
-    to: { opacity: props.in ? 1 : 0, transform: `translate3d(${props.in ? 0 : 20}px,0,0)` },
+    to: { opacity: props.in ? 1 : 0, transform: `translate3d(${props.in ? 0 : 20}px,0,0)` }
   })
 
   return (
@@ -15,13 +15,6 @@ const TransitionComponent = (props) => {
       <Collapse {...props} />
     </animated.div>
   )
-}
-
-TransitionComponent.propTypes = {
-  /**
-   * Show the component triggers the enter or exit states
-   */
-  in: PropTypes.bool,
 }
 
 export default TransitionComponent

@@ -2,16 +2,47 @@ import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
-import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
-import { Delete as DeleteIcon, FilterList as FilterListIcon } from '@material-ui/icons'
+import { Toolbar, Typography, Tooltip, IconButton, FormControl, Input, InputAdornment } from '@material-ui/core'
+import { Delete as DeleteIcon, FilterList as FilterListIcon, Search as SearchIcon } from '@material-ui/icons'
 
 import toolBartableStyle from './toolbarTableStyle'
 
 const useToolbarStyles = makeStyles(toolBartableStyle)
 
+const SearchBox = ({ handleSearch }) => {
+  const ref = React.useRef(null)
+
+  let timeout = null
+
+  const onChange = () => {
+    if (typeof handleSearch !== 'function') return
+    handleSearch({ ref, value: ref.current.value })
+  }
+
+  const onChangeDelay = () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => onChange(), 500)
+  }
+
+  return (
+    <FormControl>
+      <Input
+        inputRef={ref}
+        onChange={onChangeDelay}
+        id='input-with-icon-adornment'
+        startAdornment={
+          <InputAdornment position='start'>
+            <SearchIcon />
+          </InputAdornment>
+        }
+      />
+    </FormControl>
+  )
+}
+
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles()
-  const { numSelected } = props
+  const { numSelected, handleSearch } = props
 
   return (
     <Toolbar className={clsx(classes.root, { [classes.highlight]: numSelected > 0 })}>
@@ -26,11 +57,14 @@ const EnhancedTableToolbar = props => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title='Filter list'>
-          <IconButton aria-label='filter list'>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+          <SearchBox handleSearch={handleSearch} />
+          <Tooltip title='Filter list'>
+            <IconButton aria-label='filter list'>
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        </>
       )}
     </Toolbar>
   )

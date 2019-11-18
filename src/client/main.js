@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { withData } from 'react-hooks-usemodel'
 import Theme from './themes'
 import routerLink from './router'
+import { Progress } from './component'
 
 const App = () => {
   return (
@@ -17,11 +18,12 @@ const App = () => {
             return <Route key={key} {...other} />
           })}
         </Switch>
+        <Progress />
       </Theme>
     </BrowserRouter>
   )
 }
 
-const Application = withData({})(App)
+const Application = withData({ isLoading: false })(App)
 
 ReactDom.render(<Application />, document.getElementById('root'))

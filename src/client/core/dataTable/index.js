@@ -1,14 +1,24 @@
 import Eventhandler from '../eventHandler'
 import DataRow from './dataRow'
 
+// const buildColumns = model => _.mapValues(model, col => col)
+const defaultFilter = {
+  strKey: '',
+  isDelete: false,
+  pageSize: 1,
+  pageNumber: 1,
+  colSort: 'createDate',
+  typeSort: 'asc'
+}
 class DataTable extends Eventhandler {
-  constructor (model, filter, data) {
+  constructor (model, filter = {}, data) {
     super()
     super.initEvents(['change'])
 
     this.model = model
-    this._filter = filter
+    this._filter = { ...defaultFilter, ...filter }
     this.initData(data)
+    // this.header = buildColumns(this.model)
   }
 
   initData (data, total = 0) {
@@ -32,16 +42,40 @@ class DataTable extends Eventhandler {
 
   get Data () { return this.data }
 
-  // set filter (_filter) {
-  //   this.filter = { ...this.filter, ..._filter }
-  // }
-
   triggerChange () {
     super.trigger('change', this)
   }
 
+  mapHeader (iterator) {
+    return Object.keys(this.model).map((m, index) => !this.model[m].hidden ? iterator(this.model[m].label, m, index, this.model[m]) : null)
+  }
+
   mapRows (iterator) {
-    return this.rows.map((r, index) => iterator(r, r.id, index))
+    if (!this.rows) return
+    return this.rows.map((r, index) => iterator(r, r._id, index))
+  }
+
+  call () {
+    this._api(this._filter).then(data => this.setData(data.list, data.total))
+  }
+
+  changeFilter (newFilter) {
+    this._filter = { ...this._filter, ...newFilter }
+  }
+
+  bindAPI (api) {
+    if (!(typeof api === 'function')) return
+    this._api = api
+  }
+
+  updateAPI (api) {
+    if (!(typeof api === 'function')) return
+    this._updateApi = api
+  }
+
+  deleteAPI (api) {
+    if (!(typeof api === 'function')) return
+    this._deleteApi = api
   }
 }
 

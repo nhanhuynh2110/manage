@@ -8,6 +8,7 @@ import EnhancedTableHead from './tableHead'
 import Pagination from './pagination'
 
 import tableStyle from './tableStyle'
+import TableDefault from './default'
 import { desc } from './utils'
 
 function createData (name, calories, fat, carbs, protein) {
@@ -32,8 +33,7 @@ const rowsData = [
 
 const useStyles = makeStyles(tableStyle)
 
-export default ({ data = [], data1 = null }) => {
-  console.log('data1', data1)
+const TableBasic = ({ data = [], data1 = null }) => {
   const classes = useStyles()
   const [filter, setFilter] = React.useState({
     order: 'asc',
@@ -41,7 +41,7 @@ export default ({ data = [], data1 = null }) => {
     page: 0,
     rowsPerPage: 5
   })
-  const [rows, setRows] = React.useState(data)
+  const [rows, setRows] = React.useState(rowsData)
   const [selected, setSelected] = React.useState([])
   const [dense, setDense] = React.useState(false)
 
@@ -132,9 +132,12 @@ export default ({ data = [], data1 = null }) => {
             </TableBody>
           </Table>
         </div>
-        <Pagination total={rows.length} page={filter.page} rowsPerPage={filter.rowsPerPage} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />
+        <Pagination total={rows.length} page={filter.page } rowsPerPage={filter.rowsPerPage} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />
       </Paper>
       <FormControlLabel control={<Switch checked={dense} onChange={handleChangeDense} />} label='Dense padding' />
     </div>
   )
 }
+
+TableBasic.Default = TableDefault
+export default TableBasic

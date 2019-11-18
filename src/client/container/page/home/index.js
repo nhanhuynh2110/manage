@@ -5,7 +5,7 @@ import { Table } from '../../../component'
 export default () => {
   return (
     <>
-      <Table />
+      <Table.Default />
     </>
   )
 }
