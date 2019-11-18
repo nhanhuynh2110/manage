@@ -6,10 +6,11 @@ import EnhancedTableToolbar from './toolBarTable'
 import Pagination from './pagination'
 import Tabs from './tabs'
 import tableStyle from './tableStyle'
+import Rows from './row'
 
 const useStyles = makeStyles(tableStyle)
 
-const TableDefault = ({ data, tabData = null }) => {
+const TableDefault = ({ data, tabData = null, actions = null }) => {
   const classes = useStyles()
 
   const [selected, setSelected] = React.useState([])
@@ -37,9 +38,7 @@ const TableDefault = ({ data, tabData = null }) => {
     forceFilter({ pageNumber: 1, typeSort: isDesc ? 'asc' : 'desc', colSort: property })
   }
 
-  const handleSearch = ({ value }) => {
-    forceFilter({ strKey: value })
-  }
+  const handleSearch = ({ value }) => forceFilter({ strKey: value })
 
   const createSortHandler = property => event => handleRequestSort(event, property)
 
@@ -67,12 +66,22 @@ const TableDefault = ({ data, tabData = null }) => {
     setSelected(newSelected)
   }
 
+  const handleTab = (value, index) => {
+    data._tabActive = index
+    setSelected([])
+    forceFilter({ ...tabData[value].query })
+  }
+
+  const handleUpdate = (_id, value) => {
+    data.update(_id, value)
+  }
+
   const numSelected = selected.length
   const rowCount = data ? data.length : 0
   return (
     <div className={classes.root}>
       <Paper square className={classes.paper}>
-        <Tabs tabData={tabData}>
+        <Tabs tabData={tabData} handleTab={handleTab} tabActive={data ? data._tabActive : 0}>
           <EnhancedTableToolbar numSelected={numSelected} handleSearch={handleSearch} />
           <Table aria-labelledby='tableTitle' size={dense ? 'small' : 'medium'} aria-label='enhanced table'>
             <TableHead>
@@ -80,7 +89,7 @@ const TableDefault = ({ data, tabData = null }) => {
                 <TableCell padding='checkbox'>
                   <Checkbox
                     indeterminate={numSelected > 0 && numSelected < rowCount}
-                    checked={numSelected === rowCount}
+                    checked={numSelected !== 0 && numSelected === rowCount}
                     onChange={handleSelectAllClick}
                     inputProps={{ 'aria-label': 'select all desserts' }}
                   />
@@ -100,22 +109,13 @@ const TableDefault = ({ data, tabData = null }) => {
                     </TableCell>
                   )
                 })}
+                {actions && <TableCell align='right'>Actions</TableCell>}
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {data && data.mapRows((r, _id, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`
-                return (
-                  <TableRow onClick={event => handleClick(event, r._id)} key={_id} role='checkbox' aria-checked={isSelected(r._id)} tabIndex={-1} selected={isSelected(r._id)}>
-                    <TableCell padding='checkbox'><Checkbox checked={isSelected(r._id)} inputProps={{ 'aria-labelledby': labelId }} /></TableCell>
-                    {r.mapColumns((value, name) => {
-                      const align = r._model[name].numeric ? 'right' : 'left'
-                      return <TableCell align={align} key={name}>{value}</TableCell>
-                    })}
-                  </TableRow>
-                )
-              })}
+              {data && data.length <= 0 && <TableRow><TableCell colSpan={6}>Empty</TableCell></TableRow>}
+              {data && data.mapRows((r, _id, index) => <Rows tabData={tabData} tabActive={data._tabActive} dataTable={data} handleUpdate={handleUpdate} actions={actions} key={_id} model={r} isSelected={isSelected} _id={_id} handleClick={handleClick} index={index} />)}
             </TableBody>
           </Table>
           {data && <Pagination total={data.total || 0} page={data._filter.pageNumber - 1} rowsPerPage={data._filter.pageSize || 5} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />}

@@ -16,8 +16,8 @@ function TabPanel (props) {
   )
 }
 
-const TabsComponent = ({ children, tabData }) => {
-  const [selectTab] = React.useState(0)
+const TabsComponent = ({ children, tabData, handleTab, tabActive = 0 }) => {
+  const [selectTab, setTab] = React.useState(tabActive)
 
   function a11yProps (index) {
     return {
@@ -26,11 +26,10 @@ const TabsComponent = ({ children, tabData }) => {
     }
   }
 
-  const onChangeTab = () => {
-
+  const onChangeTab = (event, newValue) => {
+    handleTab(event.currentTarget.getAttribute('data-name'), newValue)
+    setTab(newValue)
   }
-
-  console.log('tabData', tabData)
   return (
     tabData
       ? (
@@ -45,11 +44,7 @@ const TabsComponent = ({ children, tabData }) => {
             scrollButtons='auto'
             aria-label='scrollable auto tabs example'
           >
-            {/* {Object.keys((k, index) => <Tab key={index} label={tabData[k].label} {...a11yProps(index)} />)} */}
-
-            <Tab label='Item One' {...a11yProps(1)} />
-            <Tab label='Item Two' {...a11yProps(2)} />
-            <Tab label='Item Three' {...a11yProps(3)} />
+            {Object.keys(tabData).map((k, index) => <Tab data-name={k} key={index} label={tabData[k].label} {...a11yProps(index)} />)}
           </Tabs>
           <TabPanel value={selectTab} index={0}>
             {children}

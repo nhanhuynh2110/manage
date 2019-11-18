@@ -5,8 +5,8 @@ export default class CategoryAPI extends API {
     return super.get(super.baseAPI(), payload, 'category')
   }
 
-  update (payload = {}) {
-    return super.put(super.baseAPI(), {}, payload, 'category')
+  update (_id, payload = {}) {
+    return super.put(super.baseAPI(), {}, payload, 'category/' + _id)
   }
 
   delete (payload = {}) {

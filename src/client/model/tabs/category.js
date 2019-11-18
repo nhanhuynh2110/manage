@@ -3,23 +3,18 @@ export default () => {
     parent: {
       label: 'Parent',
       query: {
+        isDelete: false,
         level: 'parent'
       }
     },
     children: {
       label: 'Children',
       query: {
+        isDelete: false,
         level: 'children'
       }
     },
-    all: {
-      label: 'All',
-      query: {
-        level: '',
-        isDelete: false
-      }
-    },
-    delete: {
+    trash: {
       label: 'Delete',
       query: {
         level: '',

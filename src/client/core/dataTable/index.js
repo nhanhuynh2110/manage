@@ -5,18 +5,19 @@ import DataRow from './dataRow'
 const defaultFilter = {
   strKey: '',
   isDelete: false,
-  pageSize: 1,
+  pageSize: 5,
   pageNumber: 1,
   colSort: 'createDate',
   typeSort: 'asc'
 }
 class DataTable extends Eventhandler {
-  constructor (model, filter = {}, data) {
+  constructor (model, filter = {}, data, tabActive) {
     super()
     super.initEvents(['change'])
 
     this.model = model
     this._filter = { ...defaultFilter, ...filter }
+    this._tabActive = tabActive
     this.initData(data)
     // this.header = buildColumns(this.model)
   }
@@ -71,6 +72,12 @@ class DataTable extends Eventhandler {
   updateAPI (api) {
     if (!(typeof api === 'function')) return
     this._updateApi = api
+  }
+
+  update(_id, value) {
+    this._updateApi(_id, value).then(data => {
+      this.call()
+    })
   }
 
   deleteAPI (api) {
